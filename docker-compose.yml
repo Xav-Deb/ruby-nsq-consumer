@@ -1,0 +1,25 @@
+version: '2'
+services:
+  nsqlookupd:
+    image: nsqio/nsq
+    command: /nsqlookupd
+    ports:
+      - "4160:4160"
+      - "4161:4161"
+  nsqd1:
+    image: nsqio/nsq
+    command: /nsqd --lookupd-tcp-address=nsqlookupd:4160 --broadcast-address=192.168.100.25 --http-address="0.0.0.0:4151" --tcp-address="0.0.0.0:4150"
+    ports:
+      - "4150:4150"
+      - "4151:4151"
+  nsqd2:
+    image: nsqio/nsq
+    command: /nsqd --lookupd-tcp-address=nsqlookupd:4160 --broadcast-address=192.168.100.25 --http-address="0.0.0.0:4181" --tcp-address="0.0.0.0:4180"
+    ports:
+      - "4180:4180"
+      - "4181:4181"
+  nsqadmin:
+    image: nsqio/nsq
+    command: /nsqadmin --lookupd-http-address=nsqlookupd:4161
+    ports:
+      - "4171:4171"

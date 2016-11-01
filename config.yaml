@@ -1,0 +1,3 @@
+nsqlookupd: '192.168.100.25:4161'
+topic: 'register_service_horsprod'
+channel: 'imola'
